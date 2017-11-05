@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Poker
@@ -61,6 +62,11 @@ namespace Poker
         private static HandRank GetPlayerHandRank(Player player)
         {
             return player.Hand.HandRank.GetHandRank();
+        }
+
+        public void PrintWinner()
+        {
+            Console.WriteLine($"The winner is {_winner.Name} with a hand of {_winner.Hand.GetHandRank()}\n");
         }
     }
 }

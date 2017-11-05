@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Poker
 {
@@ -17,17 +18,14 @@ namespace Poker
             round.DeterminePlayerHandRank();
             round.SortPlayerCards();
             round.DetermineWinner();
-            Console.WriteLine($"The winner is {round.GetWinningPlayer().Name} with a hand of {round.GetWinningPlayer().Hand.GetHandRank()}\n");
+            round.PrintWinner();
             players.ForEach(Print);
         }
 
         private static void Print(Player player)
         {
             Console.WriteLine($"{player.Name} {player.Hand.GetHandRank()}");
-            foreach (var card in player.Hand.Cards)
-            {
-                Console.WriteLine($"{card.Suit} {card.CardValue}");
-            }
+            player.Hand.Cards.ForEach(c => Console.WriteLine($"{c.Suit} {c.CardValue}"));
             Console.WriteLine("");
         }
 
