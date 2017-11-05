@@ -5,21 +5,14 @@ namespace Poker
 {
     class Flush : IRank
     {
-        private List<Card> SortedCards{ get; set; }
-
-        public Flush(List<Card> cards)
-        {
-            SortedCards = cards.OrderByDescending(c => c.CardValue).ToList();
-        }
-
         public HandRank GetHandRank()
         {
             return HandRank.Flush;
         }
 
-        public List<Card> GetSortedCards()
+        public List<Card> SortCards(List<Card> cards)
         {
-            return SortedCards;
+            return cards.OrderByDescending(c => c.CardValue).ToList();
         }
 
         public static bool IsFlush(List<Card> cards)

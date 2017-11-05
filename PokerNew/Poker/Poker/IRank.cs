@@ -5,6 +5,6 @@ namespace Poker
     interface IRank
     {
         HandRank GetHandRank();
-        List<Card> GetSortedCards();
+        List<Card> SortCards(List<Card> cards);
     }
 }

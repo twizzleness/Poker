@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Poker
 {
     class Round
     {
-        public List<Player> Players { get; set; }
+        private List<Player> Players { get; }
+        private Player _winner;
 
         public Round(List<Player> players)
         {
@@ -18,53 +18,49 @@ namespace Poker
             Players.ForEach(p => p.Hand.HandRank = RankFactory.GetHandRank(p.Hand.Cards));
         }
 
-        public Player DetermineWinner()
+        public void DetermineWinner()
         {
-            var winner = Players.First();
+            _winner = Players.First();
 
             foreach (var player in Players.Skip(1))
             {
-                if (PlayerHandRank(player) > PlayerHandRank(winner))
+                if (GetPlayerHandRank(player) > GetPlayerHandRank(_winner))
                 {
-                    winner = player;
+                    _winner = player;
                 }
-                else if (PlayerHandRank(player) == PlayerHandRank(winner))
+                else if (GetPlayerHandRank(player) == GetPlayerHandRank(_winner))
                 {
-                    for (var i = 0; i < winner.Hand.Cards.Count; i++)
+                    for (var i = 0; i < _winner.Hand.Cards.Count; i++)
                     {
-                        if (player.Hand.HandRank.GetSortedCards()[i].CardValue >
-                            winner.Hand.HandRank.GetSortedCards()[i].CardValue)
+                        if (player.Hand.Cards[i].CardValue >
+                            _winner.Hand.Cards[i].CardValue)
                         {
-                            winner = player;
+                            _winner = player;
+                            break;
+                        }
+                        if (player.Hand.Cards[i].CardValue !=
+                                 _winner.Hand.Cards[i].CardValue)
+                        {
                             break;
                         }
                     }
                 }
-
-
-
-                //var winningCards = player.Hand.Cards.Where(c => Group(c.CardValue));
-
-                /*
-                 grab the first oplayer and make them the winner
-                 check each other player to see if they have a higher ranking and set them to the winner if they have a
-                 higher ranking
-
-                if they have the same ranking
-                    compair cards not part of the ranking
-                    high card wins
-
-                
-                 * */
             }
-
-            return winner;
         }
 
-        HandRank PlayerHandRank(Player player)
+        public void SortPlayerCards()
+        {
+            Players.ForEach(p => p.Hand.SortCards());
+        }
+
+        public Player GetWinningPlayer()
+        {
+            return _winner;
+        }
+
+        private static HandRank GetPlayerHandRank(Player player)
         {
             return player.Hand.HandRank.GetHandRank();
         }
-
     }
 }

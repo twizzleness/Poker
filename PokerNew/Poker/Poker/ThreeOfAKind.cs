@@ -5,30 +5,19 @@ namespace Poker
 {
     class ThreeOfAKind : IRank
     {
-        private List<Card> SortedCards { get; set; }
-
-        /****************
-         Group Cards by winning value then by the rest of the cards in descending order
-        ******************/
-
-        public ThreeOfAKind(List<Card> cards)
-        {
-            SortedCards = cards
-                .GroupBy(c => c.CardValue)
-                .SelectMany(group => group)
-                .OrderByDescending(c => c.CardValue == SetOfCardsWithSameValue.WinningValue(cards, 3))
-                .ThenByDescending(c => c.CardValue)
-                .ToList();
-        }
-
         public HandRank GetHandRank()
         {
             return HandRank.ThreeOfAKind;
         }
 
-        public List<Card> GetSortedCards()
+        public List<Card> SortCards(List<Card> cards)
         {
-            return SortedCards;
+            return cards
+                .GroupBy(c => c.CardValue)
+                .SelectMany(group => group)
+                .OrderByDescending(c => c.CardValue == SetOfCardsWithSameValue.WinningValue(cards, 3))
+                .ThenByDescending(c => c.CardValue)
+                .ToList(); 
         }
 
         public static bool IsThreeOfAKind(List<Card> cards)

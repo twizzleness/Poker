@@ -13,6 +13,15 @@ namespace Poker
             HandRank = null;
         }
 
+        public void SortCards()
+        {
+            Cards = HandRank.SortCards(Cards);
+        }
+
+        public HandRank GetHandRank()
+        {
+            return HandRank.GetHandRank();
+        }
         
     }
 }

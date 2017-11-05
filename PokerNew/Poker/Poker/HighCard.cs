@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Poker
 {
@@ -9,9 +10,9 @@ namespace Poker
             return HandRank.HighCard;
         }
 
-        public List<Card> GetSortedCards()
+        public List<Card> SortCards(List<Card> cards)
         {
-            throw new System.NotImplementedException();
+            return cards.OrderByDescending(c => c.CardValue).ToList();
         }
 
         public static bool IsHighCard(List<Card> cards)

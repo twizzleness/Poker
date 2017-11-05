@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Poker
+﻿namespace Poker
 {
     enum HandRank
     {

@@ -8,17 +8,17 @@ namespace Poker
         {
             if(Flush.IsFlush(cards))
             {
-                return new Flush(cards);
+                return new Flush();
             }
 
             if (ThreeOfAKind.IsThreeOfAKind(cards))
             {
-                return new ThreeOfAKind(cards);
+                return new ThreeOfAKind();
             }
 
             if (Pair.IsPair(cards))
             {
-                return new Pair(cards);
+                return new Pair();
             }
 
             if (HighCard.IsHighCard(cards))
